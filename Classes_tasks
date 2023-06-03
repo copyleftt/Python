@@ -1,0 +1,71 @@
+class BankAccount:
+    """
+    Represents a bank account.
+    """
+
+    def __init__(self, account_number, balance, owner_name, currency):
+        """
+        Initializes a BankAccount instance.
+
+        Args:
+            account_number (str): The account number.
+            balance (float): The initial balance of the account.
+            owner_name (str): The name of the account owner.
+            currency (str): The currency of the account.
+        """
+        self.account_number = account_number
+        self.balance = balance
+        self.owner_name = owner_name
+        self.currency = currency
+
+    def deposit(self, amount):
+        """
+        Deposits the specified amount into the account.
+
+        Args:
+            amount (float): The amount to deposit.
+        """
+        try:
+            amount = float(amount)
+            if amount <= 0:
+                raise ValueError("Deposit amount should be positive.")
+            self.balance += amount
+            print(f"Successful deposit of {amount} {self.currency}.")
+        except ValueError as e:
+            print(f"Error: {str(e)}")
+
+    def withdraw(self, amount):
+        """
+        Withdraws the specified amount from the account.
+
+        Args:
+            amount (float): The amount to withdraw.
+        """
+        try:
+            amount = float(amount)
+            if amount <= 0:
+                raise ValueError("Withdrawal amount should be positive.")
+            if self.balance < amount:
+                raise ValueError("Insufficient funds.")
+            self.balance -= amount
+            print(f"Successful withdrawal of {amount} {self.currency}.")
+        except ValueError as e:
+            print(f"Error: {str(e)}")
+
+    def get_info(self):
+        """
+        Prints information about the account.
+        """
+        print(f"Account Number: {self.account_number}")
+        print(f"Balance: {self.balance} {self.currency}")
+        print(f"Owner Name: {self.owner_name}")
+        print(f"Currency: {self.currency}")
+
+
+# Пример использования:
+account = BankAccount("123456789", 1000, "John Smith", "USD")
+
+account.deposit(-500)
+account.withdraw(200)
+
+account.get_info()
